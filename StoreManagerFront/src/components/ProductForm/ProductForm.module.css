@@ -1,0 +1,70 @@
+.form {
+  background-color: gray;
+  padding: 3rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.form h2 {
+  margin: 1rem 0.25rem;
+}
+.row1 {
+  display: flex;
+  gap: 0.5rem;
+}
+.divImage {
+  max-width: 200px;
+  min-width: 200px;
+  max-height: 200px;
+  min-height: 200px;
+  background-color: red;
+}
+.imageFile {
+  display: none;
+}
+.fileLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: green;
+}
+.previewImage {
+  height: 100%;
+  max-width: 100%;
+  object-fit: fill;
+}
+.divNameAndDescription {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+  width: 100%;
+}
+input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid red;
+  border-radius: 0.25rem;
+}
+.description {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid red;
+  border-radius: 0.25rem;
+}
+.row2,
+.row3 {
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  margin: 1rem auto;
+  padding: 0.75rem 1rem;
+  width: 300px;
+  background-color: #007bff;
+  border-radius: 0.25rem;
+}

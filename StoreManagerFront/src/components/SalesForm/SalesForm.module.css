@@ -1,0 +1,164 @@
+.salesForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.customSelect {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.selectHeader {
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  text-align: left;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.selectOptions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  display: none;
+  flex-direction: column;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.customSelect:hover .selectOptions {
+  display: flex;
+}
+
+.selectOption {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.selectOption:hover {
+  background-color: #f0f0f0;
+}
+
+.productImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.productInfo {
+  font-size: 14px;
+  flex: 1;
+}
+
+.productInfo span {
+  font-weight: bold;
+}
+
+.cart {
+  margin-top: 20px;
+}
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.cartProductImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.cartProductInfo {
+  flex: 1;
+  font-size: 14px;
+}
+
+.cartProductInfo span {
+  font-weight: bold;
+}
+
+.cartProductInfo p {
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+}
+
+.quantityButton {
+  width: 30px;
+  height: 30px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantityButton:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+}
+
+.quantityInput {
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.removeButton {
+  margin-left: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background-color: darkred;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.submitButton:hover {
+  background-color: darkgreen;
+}
