@@ -11,7 +11,9 @@ const SalesForm = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/products");
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/api/products`
+        );
         setProducts(response.data);
         setFilteredProducts(response.data);
       } catch (error) {
@@ -85,7 +87,7 @@ const SalesForm = () => {
     }));
     console.log(aaaa);
     try {
-      await axios.post("http://localhost:8080/sales", aaaa);
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/sales`, aaaa);
       alert("Venda registrada com sucesso!");
       setCart([]);
     } catch (error) {

@@ -16,8 +16,6 @@ const ProductForm = () => {
   const [products, setProducts] = useState([]);
   const [fetching, setFetching] = useState(false);
 
-  const baseUrl = "http://localhost:8080";
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -25,7 +23,9 @@ const ProductForm = () => {
   const fetchProducts = async () => {
     setFetching(true);
     try {
-      const response = await axios.get(`${baseUrl}/api/products`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/products`
+      );
       setProducts(response.data);
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
@@ -53,9 +53,13 @@ const ProductForm = () => {
     formData.append("image", image);
 
     try {
-      await axios.post(`${baseUrl}/api/products`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/products`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
       fetchProducts();
       alert("produto cadastrado com sucesso");
     } catch (error) {

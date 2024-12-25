@@ -10,7 +10,9 @@ const SalesHistory = () => {
   useEffect(() => {
     const fetchSales = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/sales");
+        const response = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/sales`
+        );
         setSales(response.data);
       } catch (error) {
         console.error(error);

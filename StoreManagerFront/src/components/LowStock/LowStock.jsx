@@ -8,7 +8,7 @@ const LowStock = () => {
   useEffect(() => {
     const fetchLowStockProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/products");
+        const response = await axios.get(`${VITE_BASE_URL}/api/products`);
         const lowStock = response.data.filter(
           (product) =>
             product.stockQuantity < product.intermediateWarningQuantity
