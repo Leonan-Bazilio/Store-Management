@@ -1,0 +1,12 @@
+.divProductList {
+  display: flex;
+  gap: 0.5rem;
+}
+.product {
+  display: flex;
+  flex-direction: column;
+}
+.product img {
+  width: 100px;
+  height: 100px;
+}

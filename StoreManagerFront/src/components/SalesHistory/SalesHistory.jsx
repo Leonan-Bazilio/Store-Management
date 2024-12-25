@@ -6,13 +6,11 @@ const SalesHistory = () => {
   const [sales, setSales] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
     const fetchSales = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/sales`
-        );
+        const response = await axios.get(`${baseUrl}/api/sales`);
         setSales(response.data);
       } catch (error) {
         console.error(error);

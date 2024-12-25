@@ -16,6 +16,8 @@ const ProductForm = () => {
   const [products, setProducts] = useState([]);
   const [fetching, setFetching] = useState(false);
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -23,9 +25,7 @@ const ProductForm = () => {
   const fetchProducts = async () => {
     setFetching(true);
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/api/products`
-      );
+      const response = await axios.get(`${baseUrl}/api/products`);
       setProducts(response.data);
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
@@ -53,13 +53,9 @@ const ProductForm = () => {
     formData.append("image", image);
 
     try {
-      await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/products`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      await axios.post(`${baseUrl}/api/products`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       fetchProducts();
       alert("produto cadastrado com sucesso");
     } catch (error) {
@@ -127,8 +123,7 @@ const ProductForm = () => {
           value={product.sellingPrice}
           onChange={handleChange}
         />
-      </div>
-      <div className={`${styles.row} ${styles.row3}`}>
+
         <input
           className={styles.stockQuantity}
           type="number"

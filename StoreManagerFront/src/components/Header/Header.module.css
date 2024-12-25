@@ -5,13 +5,34 @@
   text-align: center;
 }
 .nav {
+  width: 80%;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 1.5em;
   gap: 3rem;
 }
+.dropdown {
+  width: 100%;
+  position: relative;
+  background-color: black;
+}
+.dropdownContent {
+  width: 100%;
+  background-color: red;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+}
 .link {
   text-decoration: none;
-  color: white;
+  color: #333;
+  padding: 0.5rem 0.75rem;
+  display: block;
+}
+.dropdown:hover .dropdownContent {
+  display: block;
 }

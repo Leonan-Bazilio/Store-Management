@@ -4,11 +4,11 @@ import styles from "./LowStock.module.css";
 
 const LowStock = () => {
   const [lowStockProducts, setLowStockProducts] = useState([]);
-
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
     const fetchLowStockProducts = async () => {
       try {
-        const response = await axios.get(`${VITE_BASE_URL}/api/products`);
+        const response = await axios.get(`${baseUrl}/api/products`);
         const lowStock = response.data.filter(
           (product) =>
             product.stockQuantity < product.intermediateWarningQuantity
