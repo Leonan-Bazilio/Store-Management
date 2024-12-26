@@ -19,12 +19,13 @@ public class SaleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Sale>> findAll() {
-        return ResponseEntity.ok(saleService.findAll());
+    public ResponseEntity<List<ResSaleDTO>> findAll() {
+        return ResponseEntity.ok(saleService.findAllSales());
+        
     }
 
     @PostMapping
-    public ResponseEntity<Sale> registerSale(@RequestBody List<ReqSaleItemDTO> sale) {
+    public ResponseEntity<ResSaleDTO> registerSale(@RequestBody List<ReqSaleItemDTO> sale) {
         return ResponseEntity.ok(saleService.registerSale(sale));
     }
 }

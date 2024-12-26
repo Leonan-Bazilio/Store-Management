@@ -14,26 +14,28 @@ import java.util.List;
 @Service
 public class SaleService {
     private final SaleRepository saleRepository;
-    private final ProductService productService;
     private final SaleItemService saleItemService;
 
-    public SaleService(SaleRepository saleRepository, ProductService productService, SaleItemService saleItemService) {
+    public SaleService(SaleRepository saleRepository,SaleItemService saleItemService) {
         this.saleRepository = saleRepository;
-        this.productService = productService;
         this.saleItemService =saleItemService;
     }
-
+    
+    public List<ResSaleDTO> findAllSales() {
+        List<Sale> sales =saleRepository.findAll();
+        return sales.stream().map(ResSaleDTO::new).toList();
+    }
+    
     @Transactional
-    public Sale registerSale(List<ReqSaleItemDTO> saleItemDTOList) {
+    public ResSaleDTO registerSale(List<ReqSaleItemDTO> saleItemDTOList) {
         List<SaleItem> resItems = saleItemService.createSaleItemAll(saleItemDTOList);
         Sale newSale = new Sale();
         newSale.setItems(resItems);
         Sale savedSale = saleRepository.save(newSale);
-        return savedSale;
+        
+        return new ResSaleDTO(savedSale);
     }
 
-    public List<Sale> findAll() {
-        return saleRepository.findAll();
-    }
+    
 
 }
