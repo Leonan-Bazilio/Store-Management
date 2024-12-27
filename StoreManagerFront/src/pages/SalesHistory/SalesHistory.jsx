@@ -6,7 +6,6 @@ const SalesHistory = () => {
   return (
     <div>
       <Header />
-      <h2>Histórico de Vendas</h2>
 
       <SalesHistoryComponent />
     </div>

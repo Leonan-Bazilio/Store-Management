@@ -3,6 +3,7 @@ package com.storemanagement.StoreManager.service;
 
 import com.storemanagement.StoreManager.dto.ReqSaleItemDTO;
 import com.storemanagement.StoreManager.dto.ResSaleDTO;
+import com.storemanagement.StoreManager.dto.ResSaleWithPricesDTO;
 import com.storemanagement.StoreManager.entity.Sale;
 import com.storemanagement.StoreManager.entity.SaleItem;
 import com.storemanagement.StoreManager.repository.SaleRepository;
@@ -25,6 +26,11 @@ public class SaleService {
         List<Sale> sales =saleRepository.findAll();
         return sales.stream().map(ResSaleDTO::new).toList();
     }
+    public List<ResSaleWithPricesDTO> findAllSalesWithPrices() {
+        List<Sale> sales =saleRepository.findAll();
+        return sales.stream().map(ResSaleWithPricesDTO::new).toList();
+    }
+    
     
     @Transactional
     public ResSaleDTO registerSale(List<ReqSaleItemDTO> saleItemDTOList) {

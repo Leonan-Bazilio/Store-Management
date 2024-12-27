@@ -15,6 +15,7 @@ public class ResSaleWithPricesDTO {
         setItems( sale.getItems());
         setId(  sale.getId());
         setSaleDate( sale.getSaleDate());
+        setTotalPrice();
     }
     
     public LocalDateTime getSaleDate() {
@@ -45,7 +46,6 @@ public class ResSaleWithPricesDTO {
     public Double getTotalPrice() {
         return totalPrice;
     }
-    
     public void setTotalPrice() {
         this.totalPrice = this.items.stream()
                 .mapToDouble(ItemWithPriceDTO::getSubTotal)

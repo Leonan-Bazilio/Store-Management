@@ -130,7 +130,7 @@ const SalesForm = () => {
         {cart.map((item) => (
           <div key={item.product.id} className={styles.cartItem}>
             <img
-              src={item.product.imageUrl}
+              src={`${baseUrl}/uploads/${item.product.imagePath}`}
               alt={item.product.name}
               className={styles.cartProductImage}
             />

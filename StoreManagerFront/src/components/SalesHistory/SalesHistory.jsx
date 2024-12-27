@@ -3,58 +3,157 @@ import axios from "axios";
 import styles from "./SalesHistory.module.css";
 
 const SalesHistory = () => {
-  const [sales, setSales] = useState([]);
+  const [salesData, setSalesData] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [expandedSales, setExpandedSales] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const baseUrl = import.meta.env.VITE_BASE_URL;
+
   useEffect(() => {
-    const fetchSales = async () => {
+    const fetchSalesData = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/api/sales`);
-        setSales(response.data);
-      } catch (error) {
-        console.error(error);
+        const response = await axios.get(`${baseUrl}/api/sales/prices`);
+        setSalesData(response.data);
+        setError("");
+      } catch (err) {
+        setError("Erro ao buscar dados de vendas. Tente novamente mais tarde.");
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchSales();
-  }, []);
+    fetchSalesData();
+  }, [baseUrl]);
 
-  const filteredSales = sales.filter((sale) => {
+  const toggleSaleExpand = (saleId) => {
+    setExpandedSales((prevState) => ({
+      ...prevState,
+      [saleId]: !prevState[saleId],
+    }));
+  };
+
+  const filteredSales = salesData.filter((sale) => {
     const saleDate = new Date(sale.saleDate);
-    return (
-      (!startDate || new Date(startDate) <= saleDate) &&
-      (!endDate || saleDate <= new Date(endDate))
+    const start = startDate ? new Date(startDate) : new Date(0);
+    const end = endDate ? new Date(endDate) : new Date();
+
+    const matchesDateRange =
+      (!startDate || saleDate >= start) && (!endDate || saleDate <= end);
+
+    const matchesSearchQuery = sale.items.some((item) =>
+      item.product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    return matchesDateRange && matchesSearchQuery;
   });
 
+  if (loading) return <div className={styles.loading}>Carregando dados...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
+
   return (
-    <div className={styles.salesHistory}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Histórico de Vendas</h1>
+
       <div className={styles.filters}>
         <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          type="text"
+          id="searchQuery"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Pesquisar Produto"
+          className={styles.searchInput}
         />
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
+
+        <div className={styles.dateFields}>
+          <div className={styles.dateField}>
+            <label htmlFor="startDate">Data Inicial:</label>
+            <input
+              type="date"
+              id="startDate"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className={styles.dateInput}
+            />
+          </div>
+
+          <div className={styles.dateField}>
+            <label htmlFor="endDate">Data Final:</label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className={styles.dateInput}
+            />
+          </div>
+        </div>
       </div>
 
-      <ul>
+      <ul className={styles.salesList}>
         {filteredSales.map((sale) => (
-          <li key={sale.id}>
-            <h3>Venda #{sale.id}</h3>
-            <p>Data: {new Date(sale.saleDate).toLocaleDateString()}</p>
-            <ul>
-              {sale.items.map((item) => (
-                <li key={item.product.id}>
-                  {item.product.name} - Quantidade: {item.quantity}
-                </li>
-              ))}
-            </ul>
+          <li key={sale.id} className={styles.saleItem}>
+            <div className={styles.saleHeader}>
+              <span className={styles.saleDate}>
+                {new Date(sale.saleDate).toLocaleDateString("pt-BR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
+              {!expandedSales[sale.id] && (
+                <span className={styles.saleTotal}>
+                  Total: <strong>R$ {sale.totalPrice.toFixed(2)}</strong>
+                </span>
+              )}
+              <button
+                className={styles.expandButton}
+                onClick={() => toggleSaleExpand(sale.id)}
+              >
+                {expandedSales[sale.id] ? "▲ Fechar" : "▼ Detalhes"}
+              </button>
+            </div>
+
+            {expandedSales[sale.id] && (
+              <div className={styles.saleDetails}>
+                <ul className={styles.saleItems}>
+                  {sale.items.map((item, index) => (
+                    <li key={index} className={styles.saleItemDetail}>
+                      <div className={styles.itemLeft}>
+                        <img
+                          src={`${baseUrl}/uploads/${item.product.imagePath}`}
+                          alt={item.product.name}
+                          className={styles.itemImage}
+                        />
+                        <div>
+                          <p className={styles.itemName}>{item.product.name}</p>
+                          <p className={styles.itemDescription}>
+                            {item.product.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className={styles.itemRight}>
+                        <p>
+                          {item.quantity} x R${" "}
+                          {item.product.sellingPrice.toFixed(2)}
+                        </p>
+                        <p className={styles.itemSubtotal}>
+                          R$ {item.subTotal.toFixed(2)}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                <div className={styles.saleFooter}>
+                  Total: <strong>R$ {sale.totalPrice.toFixed(2)}</strong>
+                </div>
+              </div>
+            )}
           </li>
         ))}
       </ul>

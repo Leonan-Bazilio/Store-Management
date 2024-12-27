@@ -2,6 +2,7 @@ package com.storemanagement.StoreManager.controller;
 
 import com.storemanagement.StoreManager.dto.ReqSaleItemDTO;
 import com.storemanagement.StoreManager.dto.ResSaleDTO;
+import com.storemanagement.StoreManager.dto.ResSaleWithPricesDTO;
 import com.storemanagement.StoreManager.entity.Sale;
 import com.storemanagement.StoreManager.service.SaleService;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,10 @@ public class SaleController {
     @GetMapping
     public ResponseEntity<List<ResSaleDTO>> findAll() {
         return ResponseEntity.ok(saleService.findAllSales());
-        
+    }
+    @GetMapping("/prices")
+    public ResponseEntity<List<ResSaleWithPricesDTO>> findAllSalesWithPrices() {
+        return ResponseEntity.ok(saleService.findAllSalesWithPrices());
     }
 
     @PostMapping
