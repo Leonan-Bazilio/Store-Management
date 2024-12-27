@@ -34,7 +34,7 @@ const Header = () => {
             <Link to="/low-stock" className={styles.link}>
               Baixo Estoque
             </Link>
-            <Link to="/show-sales" className={styles.link}>
+            <Link to="/profit-overview" className={styles.link}>
               gastos e lucros
             </Link>
           </div>

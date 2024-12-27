@@ -6,6 +6,7 @@ import ManageSales from "./pages/ManageSales/ManageSales";
 import SalesHistory from "./pages/SalesHistory/SalesHistory";
 import LowStock from "./pages/LowStock/LowStock";
 import ShowProducts from "./pages/ShowProducts/ShowProducts";
+import Profit from "./pages/Profit/Profit";
 const App = () => {
   return (
     <Router>
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/manage-sales" element={<ManageSales />} />
           <Route path="/sales-history" element={<SalesHistory />} />
           <Route path="/low-stock" element={<LowStock />} />
+          <Route path="/profit-overview" element={<Profit />} />
         </Routes>
       </div>
     </Router>
