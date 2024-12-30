@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className={styles.header}>
+      <div className={styles.logo}>LEO</div>
       <nav className={styles.nav}>
         <div className={styles.dropdown}>
           <div className={styles.dropdownTitle}>Produto</div>
@@ -24,7 +25,7 @@ const Header = () => {
               Efetuar Venda
             </Link>
             <Link to="/sales-history" className={styles.link}>
-              historico de vendas
+              Histórico de Vendas
             </Link>
           </div>
         </div>
@@ -35,7 +36,7 @@ const Header = () => {
               Baixo Estoque
             </Link>
             <Link to="/profit-overview" className={styles.link}>
-              gastos e lucros
+              Gastos e Lucros
             </Link>
           </div>
         </div>
