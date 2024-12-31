@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./ProductForm.module.css";
+import InputField from "../InputField/InputField";
 
 const ProductForm = () => {
   const [product, setProduct] = useState({
@@ -13,26 +14,8 @@ const ProductForm = () => {
     alertQuantity: "",
   });
   const [image, setImage] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [fetching, setFetching] = useState(false);
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    setFetching(true);
-    try {
-      const response = await axios.get(`${baseUrl}/api/products`);
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar produtos:", error);
-    } finally {
-      setFetching(false);
-    }
-  };
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -56,27 +39,27 @@ const ProductForm = () => {
       await axios.post(`${baseUrl}/api/products`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      fetchProducts();
-      alert("produto cadastrado com sucesso");
+
+      alert("Produto cadastrado com sucesso");
     } catch (error) {
       console.error("Erro ao criar produto:", error);
-      alert("erro ao cadastrar");
+      alert("Erro ao cadastrar produto");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <h2>Adicionar Produto</h2>
-      <div className={`${styles.row} ${styles.row1}`}>
-        <div className={styles.divImage}>
-          <input
-            className={styles.imageFile}
-            type="file"
-            name="imageFile"
-            id="fileInput"
-            onChange={handleImageChange}
-          />
-          <label htmlFor="fileInput" className={styles.fileLabel}>
+      <div className={styles.row}>
+        <div className={styles.imageContainer}>
+          <label htmlFor="fileInput" className={styles.imageLabel}>
+            <input
+              type="file"
+              id="fileInput"
+              className={styles.imageInput}
+              onChange={handleImageChange}
+            />
+
             {image ? (
               <img
                 src={URL.createObjectURL(image)}
@@ -88,68 +71,66 @@ const ProductForm = () => {
             )}
           </label>
         </div>
-        <div className={styles.divNameAndDescription}>
-          <input
-            className={styles.name}
+        <div className={styles.textInputs}>
+          <InputField
             type="text"
-            name="name"
-            placeholder="Nome"
+            nameAndId="name"
+            placeholder="Nome do Produto"
             value={product.name}
             onChange={handleChange}
+            className={styles.input}
           />
-          <textarea
-            className={styles.description}
-            name="description"
-            placeholder="Descrição"
+          <InputField
+            type="textarea"
+            nameAndId="description"
+            placeholder="Descrição do Produto"
             value={product.description}
             onChange={handleChange}
-          ></textarea>
+            className={styles.textarea}
+          />
         </div>
       </div>
-      <div className={`${styles.row} ${styles.row2}`}>
-        <input
-          className={styles.costPrice}
+      <div className={styles.row}>
+        <InputField
           type="number"
-          name="costPrice"
+          nameAndId="costPrice"
           placeholder="Preço de Custo"
           value={product.costPrice}
           onChange={handleChange}
+          className={styles.input}
         />
-        <input
-          className={styles.sellingPrice}
+        <InputField
           type="number"
-          name="sellingPrice"
+          nameAndId="sellingPrice"
           placeholder="Preço de Venda"
           value={product.sellingPrice}
           onChange={handleChange}
         />
-
-        <input
-          className={styles.stockQuantity}
+      </div>
+      <div className={styles.row}>
+        <InputField
           type="number"
-          name="stockQuantity"
+          nameAndId="stockQuantity"
           placeholder="Quantidade em Estoque"
           value={product.stockQuantity}
           onChange={handleChange}
         />
-        <input
-          className={styles.midQuantity}
+        <InputField
           type="number"
-          name="intermediateWarningQuantity"
+          nameAndId="intermediateWarningQuantity"
           placeholder="Estoque Mínimo"
           value={product.intermediateWarningQuantity}
           onChange={handleChange}
         />
-        <input
-          className={styles.alertQuantity}
+        <InputField
           type="number"
-          name="alertQuantity"
+          nameAndId="alertQuantity"
           placeholder="Quantidade de Alerta"
           value={product.alertQuantity}
           onChange={handleChange}
         />
       </div>
-      <button className={styles.button} type="submit">
+      <button type="submit" className={styles.submitButton}>
         Cadastrar Produto
       </button>
     </form>
