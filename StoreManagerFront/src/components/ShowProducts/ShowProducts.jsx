@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "./ShowAllProducts.module.css";
+import styles from "./ShowProducts.module.css";
 import InputField from "../InputField/InputField";
+import ProductDetails from "../ProductDetails/ProductDetails";
 const ShowAllProducts = () => {
   const [products, setProducts] = useState([]);
   const [fetching, setFetching] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   const truncateDescription = (description, maxLength) => {
@@ -50,10 +51,16 @@ const ShowAllProducts = () => {
       />
       {fetching ? (
         <p className={styles.loading}>Carregando produtos...</p>
+      ) : filteredProducts.length === 0 ? (
+        <h1 className={styles.emptyList}>Não tem nenhum</h1>
       ) : (
         <div className={styles.productList}>
           {filteredProducts.map((prod) => (
-            <div className={styles.productCard} key={prod.id}>
+            <div
+              className={styles.productCard}
+              key={prod.id}
+              onClick={() => setSelectedProduct(prod)}
+            >
               <img
                 src={`${baseUrl}/uploads/${prod.imagePath}`}
                 alt={prod.name}
@@ -75,6 +82,7 @@ const ShowAllProducts = () => {
           ))}
         </div>
       )}
+      {selectedProduct && <ProductDetails product={selectedProduct} />}
     </div>
   );
 };

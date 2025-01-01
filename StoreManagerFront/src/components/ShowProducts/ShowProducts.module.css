@@ -18,10 +18,14 @@
   padding: 0.5rem 1rem;
 }
 
+.emptyList,
 .loading {
   text-align: center;
   font-size: 1.5rem;
   color: #666;
+}
+.emptyList {
+  margin-top: 140px;
 }
 
 .productList {
