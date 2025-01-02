@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./ProductDetails.module.css";
 import InputField from "../InputField/InputField";
 
-const ProductDetails = ({ product }) => {
+const ProductDetails = ({ product, onClose }) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   return (
     <div className={styles.container}>
@@ -16,7 +16,9 @@ const ProductDetails = ({ product }) => {
             minute: "2-digit",
           })}
         </span>
-        <button className={styles.closeBtn}>X</button>
+        <button className={styles.closeBtn} onClick={onClose}>
+          X
+        </button>
         <div className={styles.row1}>
           <img
             className={styles.image}

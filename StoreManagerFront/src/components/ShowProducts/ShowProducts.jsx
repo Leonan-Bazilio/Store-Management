@@ -22,6 +22,9 @@ const ShowAllProducts = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
+  const handleClose = () => {
+    setSelectedProduct(null);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -82,7 +85,9 @@ const ShowAllProducts = () => {
           ))}
         </div>
       )}
-      {selectedProduct && <ProductDetails product={selectedProduct} />}
+      {selectedProduct && (
+        <ProductDetails product={selectedProduct} onClose={handleClose} />
+      )}
     </div>
   );
 };
