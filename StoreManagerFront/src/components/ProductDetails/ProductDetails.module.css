@@ -15,14 +15,33 @@
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  padding: 2rem;
+  padding: 2.5rem;
   width: 80%;
-  max-width: 800px;
+  max-width: 850px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   animation: fadeIn 0.3s ease-in-out;
+  position: relative;
 }
+.createDate {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+.closeBtn {
+  font-size: 1.5rem;
+  color: red;
+  cursor: pointer;
+  padding: 0.25rem;
+
+  background-color: transparent;
+  font-weight: bold;
+  border: none;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+} /*deixar isso temporariamnete depois produro os simbolos bonitinhos para colocar*/
 
 @keyframes fadeIn {
   from {
@@ -60,10 +79,13 @@
 
 .container p,
 .container h2 {
-  background-color: #aaf8f8;
+  background-color: #f8f8f8;
   padding: 0.5rem;
   border-radius: 4px;
 }
+p::first-letter {
+  text-transform: uppercase;
+} /*colocar iso no global depois e para outros elementos alem do "p"*/
 .textContent p {
   flex: 1;
 }
@@ -84,22 +106,25 @@
   margin-top: 0.5rem;
   display: flex;
   gap: 0.5rem;
+  flex-direction: column;
 }
 .inputStock {
   max-width: 190px;
 }
 
-.addButton {
+.addButton,
+.btnEdit {
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.addButton:hover {
+.addButton:hover,
+.btnEdit:hover {
   background-color: #0056b3;
 }
 .divField {
@@ -107,4 +132,16 @@
   flex-direction: column;
   align-items: center;
   width: fit-content;
+}
+.divField p {
+  width: 100%;
+  text-align: center;
+}
+.divBtnEdit {
+  display: flex;
+  justify-content: end;
+}
+.btnEdit {
+  font-size: 1.5rem;
+  padding: 0.75rem 1.5rem;
 }

@@ -7,6 +7,16 @@ const ProductDetails = ({ product }) => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
+        <span className={styles.createDate}>
+          {new Date(product.createdAt).toLocaleString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </span>
+        <button className={styles.closeBtn}>X</button>
         <div className={styles.row1}>
           <img
             className={styles.image}
@@ -36,6 +46,7 @@ const ProductDetails = ({ product }) => {
               <p>Quantidade em Estoque: </p>
               <p> {product.stockQuantity}</p>
             </div>
+
             <div className={styles.addStock}>
               <InputField
                 type="number"
@@ -47,14 +58,17 @@ const ProductDetails = ({ product }) => {
               <button className={styles.addButton}>Adicionar</button>
             </div>
           </div>
-          <div>
+          <div className={styles.divField}>
             <p>Estoque minimo recomendado:</p>
             <p>{product.intermediateWarningQuantity}</p>
           </div>
-          <div>
+          <div className={styles.divField}>
             <p>Estoque alerta: </p>
             <p>{product.alertQuantity}</p>
           </div>
+        </div>
+        <div className={styles.divBtnEdit}>
+          <button className={styles.btnEdit}>Editar</button>
         </div>
       </div>
     </div>
