@@ -5,6 +5,12 @@ import InputField from "../InputField/InputField";
 const ProductDetails = ({ product, onClose, onAddStock }) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
   const [addStock, setAddStock] = useState();
+  const [editingProduct, setEditingProduct] = useState(true);
+
+  const handleEditing = () => {
+    setEditingProduct((prev) => !prev);
+    //colocar alteração no conteudo para input amanha, partiu dormir
+  };
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -75,8 +81,17 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
             <p>{product.alertQuantity}</p>
           </div>
         </div>
-        <div className={styles.divBtnEdit}>
-          <button className={styles.btnEdit}>Editar</button>
+        <div
+          className={`${
+            editingProduct ? styles.divBtnsEditing : styles.divBtns
+          }`}
+        >
+          <button className={styles.btnCancel} onClick={handleEditing}>
+            Cancelar
+          </button>
+          <button className={styles.btnEdit} onClick={handleEditing}>
+            {editingProduct ? "Salvar" : "Editar"}
+          </button>
         </div>
       </div>
     </div>

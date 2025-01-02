@@ -113,7 +113,8 @@ p::first-letter {
 }
 
 .addButton,
-.btnEdit {
+.btnEdit,
+.btnCancel {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -137,11 +138,25 @@ p::first-letter {
   width: 100%;
   text-align: center;
 }
-.divBtnEdit {
+.divBtns {
   display: flex;
   justify-content: end;
 }
-.btnEdit {
+.divBtnsEditing {
+  display: flex;
+  justify-content: space-between;
+}
+.btnEdit,
+.btnCancel {
   font-size: 1.5rem;
   padding: 0.75rem 1.5rem;
+}
+.btnCancel {
+  background-color: #ff4444;
+}
+.btnCancel:hover {
+  background-color: #c91c1c;
+}
+.divBtns .btnCancel {
+  display: none;
 }
