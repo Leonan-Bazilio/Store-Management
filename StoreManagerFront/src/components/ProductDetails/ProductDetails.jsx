@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import styles from "./ProductDetails.module.css";
 import InputField from "../InputField/InputField";
 
-const ProductDetails = ({ product, onClose }) => {
+const ProductDetails = ({ product, onClose, onAddStock }) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
+  const [addStock, setAddStock] = useState();
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -54,10 +55,15 @@ const ProductDetails = ({ product, onClose }) => {
                 type="number"
                 nameAndId="stockQuantity"
                 placeholder="Adicionar ao estoque"
-                value={"depois adiciono"}
+                value={addStock}
+                onChange={(e) => {
+                  setAddStock(e.target.value);
+                }}
                 className={styles.inputStock}
               />
-              <button className={styles.addButton}>Adicionar</button>
+              <button className={styles.addButton} onClick={onAddStock}>
+                Adicionar
+              </button>
             </div>
           </div>
           <div className={styles.divField}>

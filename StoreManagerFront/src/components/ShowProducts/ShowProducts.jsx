@@ -26,6 +26,10 @@ const ShowAllProducts = () => {
     setSelectedProduct(null);
   };
 
+  const handleAddStock = () => {
+    //tenho que adicionar esse endpoint no back
+    alert("chegou aqui");
+  };
   useEffect(() => {
     const fetchProducts = async () => {
       setFetching(true);
@@ -86,7 +90,11 @@ const ShowAllProducts = () => {
         </div>
       )}
       {selectedProduct && (
-        <ProductDetails product={selectedProduct} onClose={handleClose} />
+        <ProductDetails
+          product={selectedProduct}
+          onClose={handleClose}
+          onAddStock={handleAddStock}
+        />
       )}
     </div>
   );
