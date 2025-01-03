@@ -8,6 +8,7 @@ const InputField = ({
   value,
   onChange,
   className = "",
+  divClassName = "",
 }) => {
   const [focused, setFocused] = useState();
   const handleFocus = () => {
@@ -17,7 +18,7 @@ const InputField = ({
     <div
       className={`${
         type !== "textarea" ? styles.divInput : styles.divTextarea
-      }`}
+      } ${divClassName}`}
     >
       {type !== "textarea" ? (
         <input

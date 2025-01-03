@@ -75,7 +75,7 @@ const ProductForm = () => {
           <InputField
             type="text"
             nameAndId="name"
-            placeholder="Nome do Produto"
+            textLabel="Nome do Produto"
             value={product.name}
             onChange={handleChange}
             className={styles.input}
@@ -83,7 +83,7 @@ const ProductForm = () => {
           <InputField
             type="textarea"
             nameAndId="description"
-            placeholder="Descrição do Produto"
+            textLabel="Descrição do Produto"
             value={product.description}
             onChange={handleChange}
             className={styles.textarea}
@@ -94,7 +94,7 @@ const ProductForm = () => {
         <InputField
           type="number"
           nameAndId="costPrice"
-          placeholder="Preço de Custo"
+          textLabel="Preço de Custo"
           value={product.costPrice}
           onChange={handleChange}
           className={styles.input}
@@ -102,7 +102,7 @@ const ProductForm = () => {
         <InputField
           type="number"
           nameAndId="sellingPrice"
-          placeholder="Preço de Venda"
+          textLabel="Preço de Venda"
           value={product.sellingPrice}
           onChange={handleChange}
         />
@@ -111,21 +111,21 @@ const ProductForm = () => {
         <InputField
           type="number"
           nameAndId="stockQuantity"
-          placeholder="Quantidade em Estoque"
+          textLabel="Quantidade em Estoque"
           value={product.stockQuantity}
           onChange={handleChange}
         />
         <InputField
           type="number"
           nameAndId="intermediateWarningQuantity"
-          placeholder="Estoque Mínimo"
+          textLabel="Estoque Mínimo"
           value={product.intermediateWarningQuantity}
           onChange={handleChange}
         />
         <InputField
           type="number"
           nameAndId="alertQuantity"
-          placeholder="Quantidade de Alerta"
+          textLabel="Quantidade de Alerta"
           value={product.alertQuantity}
           onChange={handleChange}
         />

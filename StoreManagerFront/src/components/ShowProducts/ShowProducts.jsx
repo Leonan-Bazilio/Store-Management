@@ -51,10 +51,11 @@ const ShowAllProducts = () => {
       <h1 className={styles.title}>Produtos Cadastrados</h1>
       <InputField
         type="text"
-        placeholder="Pesquisar por nome do produto..."
+        textLabel="Pesquisar por nome do produto..."
+        nameAndId={"searchProduct"}
         value={searchTerm}
         onChange={handleSearch}
-        className={styles.searchInput}
+        divClassName={styles.searchInput}
       />
       {fetching ? (
         <p className={styles.loading}>Carregando produtos...</p>

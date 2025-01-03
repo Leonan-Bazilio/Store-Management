@@ -88,7 +88,7 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
                 <InputField
                   type="text"
                   nameAndId="name"
-                  placeholder="Nome do Produto"
+                  textLabel="Nome do Produto"
                   value={productData.name}
                   onChange={handleChange}
                   className={styles.input}
@@ -96,7 +96,7 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
                 <InputField
                   type="textarea"
                   nameAndId="description"
-                  placeholder="Descrição do Produto"
+                  textLabel="Descrição do Produto"
                   value={productData.description}
                   onChange={handleChange}
                   className={styles.textarea}
@@ -107,7 +107,7 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
               <InputField
                 type="number"
                 nameAndId="costPrice"
-                placeholder="Preço de Custo"
+                textLabel="Preço de Custo"
                 value={productData.costPrice}
                 onChange={handleChange}
                 className={styles.input}
@@ -115,7 +115,7 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
               <InputField
                 type="number"
                 nameAndId="sellingPrice"
-                placeholder="Preço de Venda"
+                textLabel="Preço de Venda"
                 value={productData.sellingPrice}
                 onChange={handleChange}
               />
@@ -124,21 +124,21 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
               <InputField
                 type="number"
                 nameAndId="stockQuantity"
-                placeholder="Quantidade em Estoque"
+                textLabel="Quantidade em Estoque"
                 value={productData.stockQuantity}
                 onChange={handleChange}
               />
               <InputField
                 type="number"
                 nameAndId="intermediateWarningQuantity"
-                placeholder="Estoque Mínimo"
+                textLabel="Estoque Mínimo"
                 value={productData.intermediateWarningQuantity}
                 onChange={handleChange}
               />
               <InputField
                 type="number"
                 nameAndId="alertQuantity"
-                placeholder="Quantidade de Alerta"
+                textLabel="Quantidade de Alerta"
                 value={productData.alertQuantity}
                 onChange={handleChange}
               />
@@ -180,7 +180,7 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
                   <InputField
                     type="number"
                     nameAndId="stockQuantity"
-                    placeholder="Adicionar ao estoque"
+                    textLabel="Adicionar ao estoque"
                     value={addStock}
                     onChange={(e) => {
                       setAddStock(e.target.value);

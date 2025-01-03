@@ -11,11 +11,9 @@
 }
 
 .searchInput {
-  display: block;
   width: 100%;
   max-width: 400px;
   margin: 1.5rem auto;
-  padding: 0.5rem 1rem;
 }
 
 .emptyList,
@@ -30,7 +28,7 @@
 
 .productList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
