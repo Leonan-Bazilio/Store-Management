@@ -7,6 +7,8 @@ const SalesForm = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [discount, setDiscount] = useState(0); //depois vou inplementar isso na requisição de vendas mas vou atualizar o back primeiro
+
   const baseUrl = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,6 +22,10 @@ const SalesForm = () => {
 
     fetchProducts();
   }, []);
+  const subTotal = cart.reduce((acc, item) => {
+    return acc + item.quantity * item.product.sellingPrice;
+  }, 0);
+  const total = subTotal - discount;
 
   const filteredProducts = products.filter((product) => {
     const productInCart = cart.some((item) => item.product.id === product.id);
@@ -70,7 +76,7 @@ const SalesForm = () => {
     let aaaa = cart.map((item) => ({
       id: item.product.id,
       quantity: item.quantity,
-    }));;
+    }));
     try {
       await axios.post(`${baseUrl}/api/sales`, aaaa);
       alert("Venda registrada com sucesso!");
@@ -165,13 +171,15 @@ const SalesForm = () => {
           </div>
         ))}
         <div className={styles.divDiscount}>
-          <h4>subtotal: R$ 999,99 </h4>
+          <h4>subtotal: R$ {subTotal} </h4>
           <input
             type="number"
             className={styles.discount}
             placeholder="desconto"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
           />
-          <h3>Total: R$ 999,99</h3>
+          <h3>Total: R$ {total}</h3>
         </div>
         <div className={styles.divSubmitButton}>
           <button onClick={handleSubmit} className={styles.submitButton}>
