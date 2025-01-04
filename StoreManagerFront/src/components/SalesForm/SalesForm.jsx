@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./SalesForm.module.css";
+import InputField from "../InputField/InputField";
 
 const SalesForm = () => {
   const [products, setProducts] = useState([]);
@@ -96,10 +97,11 @@ const SalesForm = () => {
   return (
     <div className={styles.salesForm}>
       <div className={styles.customSelect}>
-        <div className={styles.selectHeader}>Selecione um Produto</div>
-        <input
+        <div className={styles.selectHeader}>Selecione os produtos</div>
+        <InputField
+          nameAndId={"searchTerm"}
           type="text"
-          placeholder="Pesquisar produto..."
+          textLabel="Pesquisar produto..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className={styles.searchInput}
@@ -125,8 +127,9 @@ const SalesForm = () => {
           ))}
         </div>
       </div>
-
+      <div className={styles.line}></div>
       <div className={styles.cart}>
+        <div className={styles.selectHeader}>Carrinho de compras</div>
         {cart.map((item) => (
           <div key={item.product.id} className={styles.cartItem}>
             <img
@@ -175,13 +178,24 @@ const SalesForm = () => {
             </button>
           </div>
         ))}
+        <div className={styles.divDiscount}>
+          <h4>subtotal: R$ 999,99 </h4>
+          <input
+            type="number"
+            className={styles.discount}
+            placeholder="desconto"
+          />
+          <h3>Total: R$ 999,99</h3>
+        </div>
+        <div className={styles.divSubmitButton}>
+          <button onClick={handleSubmit} className={styles.submitButton}>
+            Finalizar Venda
+          </button>
+        </div>
       </div>
-
-      <button onClick={handleSubmit} className={styles.submitButton}>
-        Finalizar Venda
-      </button>
     </div>
   );
 };
 
 export default SalesForm;
+//na direita 'cart' estou usando o input envez do InputField para ver uma estilização mais quadrada e ver see fica legal

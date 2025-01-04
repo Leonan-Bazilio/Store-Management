@@ -1,52 +1,42 @@
 .salesForm {
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-  max-width: 800px;
+  flex-direction: row;
+  width: 80%;
   margin: 0 auto;
+  gap: 2rem;
+}
+.line {
+  background-color: #ccc;
+  border: 2px solid #f0f0f0;
+  flex: 1;
+  max-width: 5px;
 }
 
 .customSelect {
-  position: relative;
-  width: 100%;
-  margin-bottom: 20px;
+  flex: 1;
+  margin-top: 2rem;
 }
 
 .selectHeader {
   padding: 10px;
   background-color: #f1f1f1;
   border: 1px solid #ccc;
-  cursor: pointer;
-  text-align: left;
-}
-
-.searchInput {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .selectOptions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
   background-color: white;
-  border: 1px solid #ccc;
-  display: none;
+
+  border-radius: 4px;
   flex-direction: column;
-  max-height: 200px;
+  max-height: 400px;
   overflow-y: auto;
-  z-index: 10;
+  margin-top: 0.5rem;
 }
-
-.customSelect:hover .selectOptions {
-  display: flex;
+.selectOptions::-webkit-scrollbar {
+  display: none;
 }
-
 .selectOption {
   display: flex;
   align-items: center;
@@ -75,7 +65,15 @@
 }
 
 .cart {
-  margin-top: 20px;
+  margin-top: 2rem;
+  flex: 1.4;
+}
+.cartHeader {
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .cartItem {
@@ -84,7 +82,9 @@
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
-
+.cartItem:hover {
+  background-color: #f0f0f0;
+}
 .cartProductImage {
   width: 50px;
   height: 50px;
@@ -148,8 +148,33 @@
 .removeButton:hover {
   background-color: darkred;
 }
+.divDiscount {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.discount {
+  max-width: 130px;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+}
+.discount:focus {
+  border: 2px solid #ccc;
+  outline: none;
+}
+.divSubmitButton {
+  display: flex;
+  justify-content: center;
+}
 
 .submitButton {
+  width: 70%;
+  justify-self: center;
+  align-self: center;
   padding: 10px 20px;
   background-color: green;
   color: white;
