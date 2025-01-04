@@ -5,7 +5,6 @@ import InputField from "../InputField/InputField";
 
 const SalesForm = () => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -14,7 +13,6 @@ const SalesForm = () => {
       try {
         const response = await axios.get(`${baseUrl}/api/products`);
         setProducts(response.data);
-        setFilteredProducts(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -23,27 +21,16 @@ const SalesForm = () => {
     fetchProducts();
   }, []);
 
-  useEffect(() => {
-    const filtered = products.filter((product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  }, [searchQuery, products]);
+  const filteredProducts = products.filter((product) => {
+    const productInCart = cart.some((item) => item.product.id === product.id);
+    const productMatch = product.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return !productInCart && productMatch;
+  });
 
   const handleProductSelect = (product) => {
-    const existing = cart.find((item) => item.product.id === product.id);
-
-    if (existing) {
-      setCart(
-        cart.map((item) =>
-          item.product.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { product, quantity: 1 }]);
-    }
+    setCart([...cart, { product, quantity: 1 }]);
   };
 
   const handleQuantityChange = (id, value) => {
@@ -83,8 +70,7 @@ const SalesForm = () => {
     let aaaa = cart.map((item) => ({
       id: item.product.id,
       quantity: item.quantity,
-    }));
-    console.log(aaaa);
+    }));;
     try {
       await axios.post(`${baseUrl}/api/sales`, aaaa);
       alert("Venda registrada com sucesso!");
