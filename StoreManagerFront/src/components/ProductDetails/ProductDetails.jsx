@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ProductDetails.module.css";
 import InputField from "../InputField/InputField";
+import axios from "axios";
 
 const ProductDetails = ({ product, onClose, onAddStock }) => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -31,17 +32,24 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
     e.preventDefault();
 
     const formData = new FormData();
+    formData.append(
+      "product",
+      new Blob([JSON.stringify(productData)], { type: "application/json" })
+    );
+    formData.append("image", image);
     handleEditing();
 
     try {
-      //tenh q criar no back
-
+      await axios.put(`${baseUrl}/api/products/${product.id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       alert("Produto atualizado com sucesso");
     } catch (error) {
       console.error("Erro ao atualizar produto:", error);
       alert("Erro ao atualizar produto");
     }
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -58,7 +66,7 @@ const ProductDetails = ({ product, onClose, onAddStock }) => {
           X
         </button>
         {editingProduct ? (
-          <form onSubmit={handleUpdate} className={styles.form}>
+          <form  className={styles.form}>
             <div className={styles.row}>
               <div className={styles.imageContainer}>
                 <label htmlFor="fileInput" className={styles.imageLabel}>
