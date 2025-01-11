@@ -1,6 +1,7 @@
 package com.storemanagement.StoreManager.service;
 
 
+import com.storemanagement.StoreManager.dto.ReqSaleDTO;
 import com.storemanagement.StoreManager.dto.ReqSaleItemDTO;
 import com.storemanagement.StoreManager.dto.ResSaleDTO;
 import com.storemanagement.StoreManager.dto.ResSaleWithPricesDTO;
@@ -33,10 +34,11 @@ public class SaleService {
     
     
     @Transactional
-    public ResSaleDTO registerSale(List<ReqSaleItemDTO> saleItemDTOList) {
-        List<SaleItem> resItems = saleItemService.createSaleItemAll(saleItemDTOList);
+    public ResSaleDTO registerSale(ReqSaleDTO sale) {
+        List<SaleItem> resItems = saleItemService.createSaleItemAll(sale.getListItemsDTO());
         Sale newSale = new Sale();
         newSale.setItems(resItems);
+        newSale.setDiscount(sale.getDiscount());
         Sale savedSale = saleRepository.save(newSale);
         
         return new ResSaleDTO(savedSale);

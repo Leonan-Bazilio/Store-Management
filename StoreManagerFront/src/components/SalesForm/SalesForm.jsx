@@ -7,7 +7,7 @@ const SalesForm = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [discount, setDiscount] = useState(0); //depois vou inplementar isso na requisição de vendas mas vou atualizar o back primeiro
+  const [discount, setDiscount] = useState(null); //depois vou inplementar isso na requisição de vendas mas vou atualizar o back primeiro
 
   const baseUrl = import.meta.env.VITE_BASE_URL;
   useEffect(() => {
@@ -73,12 +73,16 @@ const SalesForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let aaaa = cart.map((item) => ({
+    let items = await cart.map((item) => ({
       id: item.product.id,
       quantity: item.quantity,
     }));
+    let sale = {
+      items,
+      discount,
+    };
     try {
-      await axios.post(`${baseUrl}/api/sales`, aaaa);
+      await axios.post(`${baseUrl}/api/sales`, sale);
       alert("Venda registrada com sucesso!");
       setCart([]);
     } catch (error) {

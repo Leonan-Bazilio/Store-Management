@@ -1,5 +1,6 @@
 package com.storemanagement.StoreManager.controller;
 
+import com.storemanagement.StoreManager.dto.ReqSaleDTO;
 import com.storemanagement.StoreManager.dto.ReqSaleItemDTO;
 import com.storemanagement.StoreManager.dto.ResSaleDTO;
 import com.storemanagement.StoreManager.dto.ResSaleWithPricesDTO;
@@ -29,7 +30,7 @@ public class SaleController {
     }
 
     @PostMapping
-    public ResponseEntity<ResSaleDTO> registerSale(@RequestBody List<ReqSaleItemDTO> sale) {
+    public ResponseEntity<ResSaleDTO> registerSale(@RequestBody ReqSaleDTO sale) {
         return ResponseEntity.ok(saleService.registerSale(sale));
     }
 }

@@ -17,6 +17,8 @@ public class Sale {
 
     @OneToMany
     private List<SaleItem> items;
+    
+    private Double discount;
 
     private LocalDateTime saleDate;
 
@@ -40,7 +42,15 @@ public class Sale {
     public void setId(long id) {
         this.id = id;
     }
-
+    
+    public Double getDiscount() {
+        return discount;
+    }
+    
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+    
     public LocalDateTime getSaleDate() {
         return saleDate;
     }

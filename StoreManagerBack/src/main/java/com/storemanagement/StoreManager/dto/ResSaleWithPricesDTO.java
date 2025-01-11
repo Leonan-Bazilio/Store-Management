@@ -10,11 +10,13 @@ public class ResSaleWithPricesDTO {
     private long id;
     private List<ItemWithPriceDTO> items;
     private LocalDateTime saleDate;
+    private Double discount;
     private Double totalPrice;
     public ResSaleWithPricesDTO(Sale sale) {
         setItems( sale.getItems());
         setId(  sale.getId());
         setSaleDate( sale.getSaleDate());
+        setDiscount(sale.getDiscount());
         setTotalPrice();
     }
     
@@ -32,7 +34,7 @@ public class ResSaleWithPricesDTO {
     
     public void setItems(List<SaleItem> items) {
         this.items = items.stream().map(item->
-                new ItemWithPriceDTO(item.getProduct(),item.getQuantity())).toList();
+                new ItemWithPriceDTO(item)).toList();
     }
     
     public long getId() {
@@ -43,12 +45,22 @@ public class ResSaleWithPricesDTO {
         this.id = id;
     }
     
+    public Double getDiscount() {
+        return discount;
+    }
+    
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+    
     public Double getTotalPrice() {
         return totalPrice;
     }
     public void setTotalPrice() {
-        this.totalPrice = this.items.stream()
+        
+        double total= this.items.stream()
                 .mapToDouble(ItemWithPriceDTO::getSubTotal)
                 .sum();
+        this.totalPrice =total-discount;
     }
 }

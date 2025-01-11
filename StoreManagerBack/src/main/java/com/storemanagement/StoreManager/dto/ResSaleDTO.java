@@ -13,12 +13,22 @@ public class ResSaleDTO {
 
     private long id;
     private List<ResSaleItemDTO> items;
+    private Double discount;
     private LocalDateTime saleDate;
 
     public ResSaleDTO(Sale sale) {
-        setItems( sale.getItems());
         setId(  sale.getId());
+        setItems( sale.getItems());
+        setDiscount(sale.getDiscount());
         setSaleDate( sale.getSaleDate());
+    }
+    
+    public long getId() {
+        return id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
 
     public LocalDateTime getSaleDate() {
@@ -38,12 +48,12 @@ public class ResSaleDTO {
         this.items = items.stream().map(item->
                 new ResSaleItemDTO(item.getProduct(),item.getQuantity())).toList();
     }
-
-    public long getId() {
-        return id;
+    
+    public Double getDiscount() {
+        return discount;
     }
-
-    public void setId(long id) {
-        this.id = id;
+    
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 }

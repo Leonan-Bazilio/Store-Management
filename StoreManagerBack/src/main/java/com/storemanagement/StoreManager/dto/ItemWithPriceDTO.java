@@ -1,15 +1,18 @@
 package com.storemanagement.StoreManager.dto;
 
 import com.storemanagement.StoreManager.entity.Product;
+import com.storemanagement.StoreManager.entity.Sale;
+import com.storemanagement.StoreManager.entity.SaleItem;
 
 public class ItemWithPriceDTO {
     private Product product;
     private long quantity;
     private double subTotal;
     
-    public ItemWithPriceDTO(Product product, long quantity) {
-        this.product = product;
-        this.quantity = quantity;
+    public ItemWithPriceDTO(SaleItem item) {
+        setProduct(item.getProduct());
+        setQuantity(item.getQuantity());
+        setSubTotal(item.getProduct().getSellingPrice(),item.getQuantity());
         this.subTotal =product.getSellingPrice()*quantity;
     }
     
@@ -33,7 +36,7 @@ public class ItemWithPriceDTO {
         return subTotal;
     }
     
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
+    public void setSubTotal(double sellingPrice, long quantity) {
+        this.subTotal = sellingPrice*quantity;
     }
 }
