@@ -44,7 +44,7 @@ public class Sale {
     }
     
     public Double getDiscount() {
-        return discount;
+        return discount != null?discount:0;
     }
     
     public void setDiscount(Double discount) {
