@@ -8,6 +8,7 @@ const SalesHistory = () => {
   const [endDate, setEndDate] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedSales, setExpandedSales] = useState({});
+  const [expandedSalesDay, setExpandedSalesDay] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -36,6 +37,13 @@ const SalesHistory = () => {
     }));
   };
 
+  const toggleSalesDayExpand = (saleDay) => {
+    setExpandedSalesDay((prevState) => ({
+      ...prevState,
+      [saleDay]: !prevState[saleDay],
+    }));
+  };
+
   const filteredSales = salesData.filter((sale) => {
     const saleDate = new Date(sale.saleDate);
     const start = startDate ? new Date(startDate) : new Date(0);
@@ -50,6 +58,18 @@ const SalesHistory = () => {
 
     return matchesDateRange && matchesSearchQuery;
   });
+
+  const groupedSales = filteredSales.reduce((acc, sale) => {
+    const saleDate = new Date(sale.saleDate);
+    const saleDay = saleDate.toLocaleDateString("pt-BR"); // Formata a data para dia/mês/ano
+
+    if (!acc[saleDay]) {
+      acc[saleDay] = [];
+    }
+
+    acc[saleDay].push(sale);
+    return acc;
+  }, {});
 
   if (loading) return <div className={styles.loading}>Carregando dados...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
@@ -94,64 +114,86 @@ const SalesHistory = () => {
       </div>
 
       <ul className={styles.salesList}>
-        {filteredSales.map((sale) => (
-          <li key={sale.id} className={styles.saleItem}>
+        {Object.keys(groupedSales).map((saleDay) => (
+          <li key={saleDay} className={styles.saleItem}>
             <div className={styles.saleHeader}>
-              <span className={styles.saleDate}>
-                {new Date(sale.saleDate).toLocaleDateString("pt-BR", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </span>
-              {!expandedSales[sale.id] && (
-                <span className={styles.saleTotal}>
-                  Total: <strong>R$ {sale.totalPrice.toFixed(2)}</strong>
-                </span>
-              )}
+              <span className={styles.saleDate}>{saleDay}</span>
               <button
                 className={styles.expandButton}
-                onClick={() => toggleSaleExpand(sale.id)}
+                onClick={() => toggleSalesDayExpand(saleDay)}
               >
-                {expandedSales[sale.id] ? "▲ Fechar" : "▼ Detalhes"}
+                {expandedSalesDay[saleDay] ? "▲ Fechar" : "▼ Detalhes"}
               </button>
             </div>
 
-            {expandedSales[sale.id] && (
+            {expandedSalesDay[saleDay] && (
               <div className={styles.saleDetails}>
                 <ul className={styles.saleItems}>
-                  {sale.items.map((item, index) => (
-                    <li key={index} className={styles.saleItemDetail}>
-                      <div className={styles.itemLeft}>
-                        <img
-                          src={`${baseUrl}/uploads/${item.product.imagePath}`}
-                          alt={item.product.name}
-                          className={styles.itemImage}
-                        />
-                        <div>
-                          <p className={styles.itemName}>{item.product.name}</p>
-                          <p className={styles.itemDescription}>
-                            {item.product.description}
-                          </p>
+                  {groupedSales[saleDay].map((sale) => (
+                    <li key={sale.id} className={styles.saleItemDetail}>
+                      <div className={styles.saleHeader}>
+                        <span className={styles.saleTime}>
+                          {new Date(sale.saleDate).toLocaleTimeString("pt-BR", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </span>
+                        <span className={styles.saleTotal}>
+                          Total:{" "}
+                          <strong>R$ {sale.totalPrice.toFixed(2)}</strong>
+                        </span>
+                        <button
+                          className={styles.expandButton}
+                          onClick={() => toggleSaleExpand(sale.id)}
+                        >
+                          {expandedSales[sale.id] ? "▲ Fechar" : "▼ Detalhes"}
+                        </button>
+                      </div>
+
+                      {expandedSales[sale.id] && (
+                        <div className={styles.saleDetails}>
+                          <ul className={styles.saleItems}>
+                            {sale.items.map((item, index) => (
+                              <li
+                                key={index}
+                                className={styles.saleItemDetailEach}
+                              >
+                                <div className={styles.itemLeft}>
+                                  <img
+                                    src={`${baseUrl}/uploads/${item.product.imagePath}`}
+                                    alt={item.product.name}
+                                    className={styles.itemImage}
+                                  />
+                                  <div>
+                                    <p className={styles.itemName}>
+                                      {item.product.name}
+                                    </p>
+                                    <p className={styles.itemDescription}>
+                                      {item.product.description}
+                                    </p>
+                                  </div>
+                                </div>
+                                <div className={styles.itemRight}>
+                                  <p>
+                                    {item.quantity} x R${" "}
+                                    {item.product.sellingPrice.toFixed(2)}
+                                  </p>
+                                  <p className={styles.itemSubtotal}>
+                                    R$ {item.subTotal.toFixed(2)}
+                                  </p>
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className={styles.saleFooter}>
+                            Total:{" "}
+                            <strong>R$ {sale.totalPrice.toFixed(2)}</strong>
+                          </div>
                         </div>
-                      </div>
-                      <div className={styles.itemRight}>
-                        <p>
-                          {item.quantity} x R${" "}
-                          {item.product.sellingPrice.toFixed(2)}
-                        </p>
-                        <p className={styles.itemSubtotal}>
-                          R$ {item.subTotal.toFixed(2)}
-                        </p>
-                      </div>
+                      )}
                     </li>
                   ))}
                 </ul>
-                <div className={styles.saleFooter}>
-                  Total: <strong>R$ {sale.totalPrice.toFixed(2)}</strong>
-                </div>
               </div>
             )}
           </li>

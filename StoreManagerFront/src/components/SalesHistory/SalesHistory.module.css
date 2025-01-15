@@ -1,27 +1,32 @@
 .container {
   width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
 }
 
 .title {
-  text-align: center;
+  font-size: 2rem;
   margin-bottom: 1rem;
+  color: #333;
 }
 
 .filters {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 1rem;
+  align-items: center;
   margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .searchInput {
   flex: 1;
-  max-width: 250px;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  font-size: 1rem;
 }
 
 .dateFields {
@@ -32,56 +37,100 @@
 .dateField {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .dateInput {
-  width: auto;
   padding: 0.5rem;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 .salesList {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .saleItem {
-  list-style: none;
-  background: #f8f8f8;
-  padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
+  margin-bottom: 1rem;
+  background: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
 }
 
 .saleHeader {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.saleDate {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #555;
+}
+
+.saleTime {
+  font-size: 1rem;
+  color: #777;
+}
+
 .saleTotal {
-  font-weight: normal;
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.expandButton {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.expandButton:hover {
+  background: #0056b3;
 }
 
 .saleDetails {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   margin-top: 1rem;
 }
 
 .saleItems {
-  list-style: none;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
-.saleItemDetail {
+.saleItemDetail,
+.saleItemDetailEach {
   display: flex;
+  flex-direction: column;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
+  padding: 0.5rem;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   margin-bottom: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
+.saleItemDetailEach {
+  flex-direction: row;
+}
 .itemLeft {
   display: flex;
   align-items: center;
@@ -91,28 +140,46 @@
 .itemImage {
   width: 50px;
   height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .itemName {
+  font-size: 1rem;
   font-weight: bold;
 }
 
 .itemDescription {
   font-size: 0.9rem;
-  color: #555;
+  color: #666;
 }
 
 .itemRight {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  text-align: right;
 }
 
 .itemSubtotal {
+  font-size: 1rem;
   font-weight: bold;
+  color: #333;
 }
 
 .saleFooter {
-  margin-top: 1rem;
   text-align: right;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #333;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.error {
+  text-align: center;
+  font-size: 1.5rem;
+  color: red;
 }
