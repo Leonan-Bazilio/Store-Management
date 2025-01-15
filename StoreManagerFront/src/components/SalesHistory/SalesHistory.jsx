@@ -185,7 +185,9 @@ const SalesHistory = () => {
                               </li>
                             ))}
                           </ul>
+
                           <div className={styles.saleFooter}>
+                            <p>Desconto: {sale.discount.toFixed(2)}</p>
                             Total:{" "}
                             <strong>R$ {sale.totalPrice.toFixed(2)}</strong>
                           </div>
