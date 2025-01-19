@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SaleService {
@@ -27,9 +28,14 @@ public class SaleService {
         List<Sale> sales =saleRepository.findAll();
         return sales.stream().map(ResSaleDTO::new).toList();
     }
+    
     public List<ResSaleWithPricesDTO> findAllSalesWithPrices() {
         List<Sale> sales =saleRepository.findAll();
         return sales.stream().map(ResSaleWithPricesDTO::new).toList();
+    }
+    public Optional<Sale> findSaleById( long saleId) {
+        Optional<Sale> sale =saleRepository.findById(saleId);
+        return sale;
     }
     
     
@@ -43,7 +49,18 @@ public class SaleService {
         
         return new ResSaleDTO(savedSale);
     }
-
+    
+    @Transactional
+    public ResSaleDTO updateSale(ReqSaleDTO sale, long id) {
+        Optional<Sale> saleData= findSaleById(id);
+        List<SaleItem> resItems = saleItemService.createSaleItemAll(sale.getListItemsDTO());
+        Sale newSale = new Sale();
+        newSale.setItems(resItems);
+        newSale.setDiscount(sale.getDiscount());
+        Sale savedSale = saleRepository.save(newSale);
+        
+        return new ResSaleDTO(savedSale);
+    }
     
 
 }

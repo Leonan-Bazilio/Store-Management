@@ -19,11 +19,21 @@ public class SaleItemService {
     @Autowired
     ProductService productService;
 
+    public List<SaleItem> findAllSaleItems(){
+        return  saleItemRepository.findBySaleId(1L);
+    }
     @Transactional
     public List<SaleItem> createSaleItemAll(List<ReqSaleItemDTO> items){
         productService.decreaseProductListAndSave(items);
         List<SaleItem> saleItemList = items.stream().map(this::formatedSaleItem).toList();
 
+        return saleItemRepository.saveAll(saleItemList);
+    }
+    @Transactional
+    public List<SaleItem> updateSaleItemAll(List<ReqSaleItemDTO> items){
+        productService.decreaseProductListAndSave(items);
+        List<SaleItem> saleItemList = items.stream().map(this::formatedSaleItem).toList();
+        
         return saleItemRepository.saveAll(saleItemList);
     }
     public SaleItem formatedSaleItem(ReqSaleItemDTO item){

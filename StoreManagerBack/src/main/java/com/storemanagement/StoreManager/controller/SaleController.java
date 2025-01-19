@@ -5,19 +5,27 @@ import com.storemanagement.StoreManager.dto.ReqSaleItemDTO;
 import com.storemanagement.StoreManager.dto.ResSaleDTO;
 import com.storemanagement.StoreManager.dto.ResSaleWithPricesDTO;
 import com.storemanagement.StoreManager.entity.Sale;
+import com.storemanagement.StoreManager.entity.SaleItem;
+import com.storemanagement.StoreManager.service.SaleItemService;
 import com.storemanagement.StoreManager.service.SaleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/sales")
 public class SaleController {
     private final SaleService saleService;
-
-    public SaleController(SaleService saleService) {
+    private final SaleItemService saleItemService;
+    public SaleController(SaleService saleService, SaleItemService saleItemService) {
         this.saleService = saleService;
+        this.saleItemService = saleItemService;
+    }
+    @GetMapping("teste")
+    public ResponseEntity<List<SaleItem>> findAllsaleItem() {
+        return ResponseEntity.ok(saleItemService.findAllSaleItems());
     }
 
     @GetMapping
@@ -27,6 +35,11 @@ public class SaleController {
     @GetMapping("/prices")
     public ResponseEntity<List<ResSaleWithPricesDTO>> findAllSalesWithPrices() {
         return ResponseEntity.ok(saleService.findAllSalesWithPrices());
+    }
+    @GetMapping("/{id}")
+    public Optional<Sale> findSaleById(@PathVariable long id) {
+        Optional<Sale> sale =saleService.findSaleById(id);
+        return sale;
     }
 
     @PostMapping
